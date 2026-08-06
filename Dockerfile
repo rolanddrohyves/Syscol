@@ -24,7 +24,7 @@ WORKDIR /var/www/html
 ENV APP_ENV production
 ENV APP_DEBUG true
 ENV LOG_CHANNEL stderr
-ENV APP_KEY=base64:WheV1LDhKXb3K0E53xIJvSjxI2sdkseSbpMhPjS1M=
+ENV APP_KEY=base64:FQgZvLSVpeAqEb74F1jziUcQkW6fwk3CvpoAziWwGNQ=
 
 # Créer les dossiers de cache
 RUN mkdir -p /var/www/html/bootstrap/cache \

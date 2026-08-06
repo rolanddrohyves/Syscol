@@ -98,7 +98,7 @@ return [
     'cipher' => 'AES-256-CBC',
 
     //(générée avec php artisan key:generate --show)
-    'key' => env('APP_KEY', 'base64:G89gvUDx8z3PV+Wega+V4mIRfQ993HOuVe505o9WmaE='),
+    'key' => env('APP_KEY', 'base64:FQgZvLSVpeAqEb74F1jziUcQkW6fwk3CvpoAziWwGNQ='),
 
     'previous_keys' => [
         ...array_filter(
