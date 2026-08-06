@@ -20,11 +20,11 @@ COPY . /var/www/html
 
 WORKDIR /var/www/html
 
-# Variables d'environnement - NOUVELLE APP_KEY
+# Variables d'environnement
 ENV APP_ENV production
 ENV APP_DEBUG true
 ENV LOG_CHANNEL stderr
-ENV APP_KEY=base64:G89gvUDx8z3PV+Wega+V4mIRfQ993HOuVe505o9WmaE=
+ENV APP_KEY=base64:WheV1LDhKXb3K0E53xIJvSjxI2sdkseSbpMhPjS1M=
 
 # Créer les dossiers de cache
 RUN mkdir -p /var/www/html/bootstrap/cache \
@@ -44,16 +44,16 @@ RUN composer install --no-interaction --no-dev --prefer-dist
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 RUN chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 
-# Vérifier APP_KEY
-RUN echo "APP_KEY is: $APP_KEY"
+# EXÉCUTER LES MIGRATIONS (FORCÉ)
+RUN php artisan migrate --force || true
+
+# CRÉER LE LIEN STORAGE
+RUN php artisan storage:link || true
 
 # Optimisations
 RUN php artisan config:cache || true
 RUN php artisan route:cache || true
 RUN php artisan view:cache || true
-
-# Migrations
-RUN php artisan migrate --force || true
 
 # Configurer Nginx
 RUN echo "server { \
