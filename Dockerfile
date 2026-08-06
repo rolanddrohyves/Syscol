@@ -1,4 +1,4 @@
-FROM richarvey/nginx-php-fpm:latest
+FROM richarvey/nginx-php-fpm:latest-php84
 
 # Copier tous les fichiers
 COPY . .
@@ -14,18 +14,18 @@ ENV APP_DEBUG false
 ENV LOG_CHANNEL stderr
 ENV COMPOSER_ALLOW_SUPERUSER 1
 
-#INSTALLER COMPOSER ICI (pendant la construction)
+# INSTALLER COMPOSER (pendant la construction)
 RUN composer install --no-interaction --no-dev --prefer-dist
 
-#OPTIMISATIONS LARAVEL
+# OPTIMISATIONS LARAVEL
 RUN php artisan config:cache || true
 RUN php artisan route:cache || true
 RUN php artisan view:cache || true
 
-#PERMISSIONS
+# PERMISSIONS
 RUN chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 
-#MIGRATIONS (si échec, continue)
+# MIGRATIONS (si échec, continue)
 RUN php artisan migrate --force || true
 
 # Démarrer le serveur
