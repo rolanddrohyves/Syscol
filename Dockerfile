@@ -20,28 +20,32 @@ COPY . /var/www/html
 
 WORKDIR /var/www/html
 
-# Variables d'environnement
+# Variables d'environnement - NOUVELLE APP_KEY
 ENV APP_ENV production
 ENV APP_DEBUG true
 ENV LOG_CHANNEL stderr
+ENV APP_KEY=base64:G89gvUDx8z3PV+Wega+V4mIRfQ993HOuVe505o9WmaE=
 
-#CRÉER TOUS LES DOSSIERS DE CACHE
+# Créer les dossiers de cache
 RUN mkdir -p /var/www/html/bootstrap/cache \
     && mkdir -p /var/www/html/storage/framework/views \
     && mkdir -p /var/www/html/storage/framework/cache \
     && mkdir -p /var/www/html/storage/framework/sessions \
     && mkdir -p /var/www/html/storage/logs
 
-# PERMISSIONS AVANT COMPOSER
+# Permissions
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 RUN chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 
 # Installer les dépendances
 RUN composer install --no-interaction --no-dev --prefer-dist
 
-# PERMISSIONS APRÈS COMPOSER
+# Permissions après composer
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 RUN chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
+
+# Vérifier APP_KEY
+RUN echo "APP_KEY is: $APP_KEY"
 
 # Optimisations
 RUN php artisan config:cache || true

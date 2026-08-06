@@ -97,8 +97,8 @@ return [
 
     'cipher' => 'AES-256-CBC',
 
-    // IMPORTANT: Clé modifiée avec fallback
-    'key' => env('APP_KEY', 'base64:WheV1LDhKXb3K0E53xIJvSjxI2sdkseSbpMhPjS1M='),
+    //(générée avec php artisan key:generate --show)
+    'key' => env('APP_KEY', 'base64:G89gvUDx8z3PV+Wega+V4mIRfQ993HOuVe505o9WmaE='),
 
     'previous_keys' => [
         ...array_filter(
