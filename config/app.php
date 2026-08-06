@@ -97,7 +97,8 @@ return [
 
     'cipher' => 'AES-256-CBC',
 
-    'key' => env('APP_KEY'),
+    // IMPORTANT: Clé modifiée avec fallback
+    'key' => env('APP_KEY', 'base64:WheV1LDhKXb3K0E53xIJvSjxI2sdkseSbpMhPjS1M='),
 
     'previous_keys' => [
         ...array_filter(
